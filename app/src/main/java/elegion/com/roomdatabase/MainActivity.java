@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         .append(listToString(musicDao.getSongs()))
                         .append(listToString(musicDao.getAlbumSong()));
 
-                Toast.makeText(MainActivity.this, builder.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, builder.toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -82,9 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String listToString(List list) {
         StringBuilder builder = new StringBuilder();
-        builder.append("Table: ")
-                .append(list.getClass().getSimpleName())
-                .append("\n");
+
         for (int i = 0, size = list.size(); i < size; i++) {
             builder.append(list.get(i).toString()).append("\n");
         }
