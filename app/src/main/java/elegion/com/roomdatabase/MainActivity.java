@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import elegion.com.roomdatabase.database.Album;
+import elegion.com.roomdatabase.database.AlbumSong;
 import elegion.com.roomdatabase.database.MusicDao;
+import elegion.com.roomdatabase.database.Song;
 
 public class MainActivity extends AppCompatActivity {
     private Button mAddBtn;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 musicDao.insertAlbums(createAlbums());
+                musicDao.insertSongs(createSongs());
+                musicDao.setLinksAlbumSongs(createAlbumSongs());
             }
         });
 
@@ -39,28 +43,51 @@ public class MainActivity extends AppCompatActivity {
         mGetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast(musicDao.getAlbums());
+                StringBuilder builder = new StringBuilder();
+                builder.append(listToString(musicDao.getAlbums()))
+                        .append(listToString(musicDao.getSongs()))
+                        .append(listToString(musicDao.getAlbumSong()));
+
+                Toast.makeText(MainActivity.this, builder.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
     private List<Album> createAlbums() {
-        List<Album> albums = new ArrayList<>(10);
-        for (int i = 0; i < 30; i++) {
+        List<Album> albums = new ArrayList<>(3);
+        for (int i = 0; i < 3; i++) {
             albums.add(new Album(i, "album " + i, "release" + System.currentTimeMillis()));
         }
 
         return albums;
     }
 
-    private void showToast(List<Album> albums) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0, size = albums.size(); i < size; i++) {
-            builder.append(albums.get(i).toString()).append("\n");
+    private List<Song> createSongs() {
+        List<Song> songs = new ArrayList<>(3);
+        for (int i =0; i < 3 ; i++) {
+            songs.add(new Song(i, "song " + 1, "release" + System.currentTimeMillis()));
         }
 
-        Toast.makeText(this, builder.toString(), Toast.LENGTH_SHORT).show();
+        return songs;
+    }
 
+    private List<AlbumSong> createAlbumSongs() {
+        List<AlbumSong> albumSongs = new ArrayList<>(3);
+        for (int i =0; i < 3 ; i++) {
+            albumSongs.add(new AlbumSong(i, i, i));
+        }
+        return albumSongs;
+    }
+
+    private String listToString(List list) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Table: ")
+                .append(list.getClass().getSimpleName())
+                .append("\n");
+        for (int i = 0, size = list.size(); i < size; i++) {
+            builder.append(list.get(i).toString()).append("\n");
+        }
+        return builder.toString();
     }
 }

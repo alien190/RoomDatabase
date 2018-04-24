@@ -41,6 +41,9 @@ public interface MusicDao {
     @Query("select * from song")
     List<Song> getSongs();
 
+    @Query("select * from albumsong")
+    List<Song> getAlbumSong();
+
     @Delete
     void deleteAlbum(Album album);
 

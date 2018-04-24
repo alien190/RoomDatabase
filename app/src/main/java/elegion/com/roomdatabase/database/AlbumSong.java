@@ -56,4 +56,13 @@ public class AlbumSong {
     public void setSongId(int songId) {
         mSongId = songId;
     }
+
+    @Override
+    public String toString() {
+        return "AlbumSong{" +
+                "mId=" + mId +
+                ", mAlbumId=" + mAlbumId +
+                ", mSongId=" + mSongId +
+                '}';
+    }
 }
