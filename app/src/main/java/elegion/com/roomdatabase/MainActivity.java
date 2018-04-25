@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         .append("----------------------\n")
                         .append(listToString(musicDao.getSongs()))
                         .append("----------------------\n")
-                        .append(listToString(musicDao.getAlbumSong()));
+                        .append(listToString(musicDao.getAlbumSongs()));
 
                 if(builder.toString().endsWith("-\n")) Toast.makeText(MainActivity.this, "Database is empty", Toast.LENGTH_LONG).show();
                 else Toast.makeText(MainActivity.this, builder.toString(), Toast.LENGTH_LONG).show();

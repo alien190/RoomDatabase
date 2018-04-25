@@ -143,7 +143,7 @@ public class MusicProvider extends ContentProvider {
                     Integer id = values.getAsInteger("id");
                     song.setId(id);
                     song.setName(values.getAsString("name"));
-                    song.setDuration(values.getAsString("release"));
+                    song.setDuration(values.getAsString("duration"));
                     mMusicDao.insertSong(song);
                     return ContentUris.withAppendedId(uri, id);
 
@@ -157,7 +157,7 @@ public class MusicProvider extends ContentProvider {
                     AlbumSong albumSong = new AlbumSong();
                     albumSong.setAlbumId(values.getAsInteger("album_id"));
                     albumSong.setSongId(values.getAsInteger("song_id"));
-                    int id = mMusicDao.setLinksAlbumSong(albumSong);
+                    long id = mMusicDao.setLinksAlbumSong(albumSong);
                     return ContentUris.withAppendedId(uri, id);
 
                 } else {
@@ -208,7 +208,7 @@ public class MusicProvider extends ContentProvider {
                     Integer id = (int) ContentUris.parseId(uri);
                     song.setId(id);
                     song.setName(values.getAsString("name"));
-                    song.setDuration(values.getAsString("release"));
+                    song.setDuration(values.getAsString("duration"));
                     return mMusicDao.updateSongInfo(song);
 
                 } else {
@@ -255,7 +255,7 @@ public class MusicProvider extends ContentProvider {
                 return mMusicDao.deleteAlbumSongById(id);
             }
 
-            default: throw new IllegalArgumentException("cant add item");
+            default: throw new IllegalArgumentException("cant delete item");
         }
 
     }

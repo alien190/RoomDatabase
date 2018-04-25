@@ -56,7 +56,7 @@ public interface MusicDao {
     void insertSong(Song song);
 
     @Query("select * from song")
-    List<Album> getSongs();
+    List<Song> getSongs();
 
     @Query("select * from song")
     Cursor getSongsCursor();
@@ -84,7 +84,7 @@ public interface MusicDao {
     void setLinksAlbumSongs(List<AlbumSong> linksAlbumSongs);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    int setLinksAlbumSong(AlbumSong linksAlbumSong);
+    long setLinksAlbumSong(AlbumSong linksAlbumSong);
 
     @Query("select * from albumsong")
     List<AlbumSong> getAlbumSongs();
@@ -92,7 +92,7 @@ public interface MusicDao {
     @Query("select * from albumsong")
     Cursor getAlbumSongsCursor();
 
-    @Query("select * from albumsong where id = :albumsongId")
+    @Query("select * from albumsong where id = :albumSongId")
     Cursor getAlbumSongWithIdCursor(int albumSongId);
 
     @Delete
