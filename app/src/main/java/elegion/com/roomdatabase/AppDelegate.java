@@ -16,7 +16,7 @@ public class AppDelegate extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mMusicDatabase = Room.databaseBuilder(getApplicationContext(), MusicDatabase.class, "music_database")
+        mMusicDatabase = Room.databaseBuilder(getApplicationContext(), MusicDatabase.class, "music_database_01")
                 .allowMainThreadQueries()
                 .build();
     }

@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final MusicDao musicDao = ((AppDelegate) getApplicationContext()).getMusicDatabase().getMusicDao();
+        musicDao.clearAlbum();
+        musicDao.clearSong();
+        musicDao.clearAlbumSong();
 
         mAddBtn = (findViewById(R.id.add));
         mAddBtn.setOnClickListener(new View.OnClickListener() {
@@ -45,10 +48,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 StringBuilder builder = new StringBuilder();
                 builder.append(listToString(musicDao.getAlbums()))
+                        .append("----------------------\n")
                         .append(listToString(musicDao.getSongs()))
+                        .append("----------------------\n")
                         .append(listToString(musicDao.getAlbumSong()));
 
-                Toast.makeText(MainActivity.this, builder.toString(), Toast.LENGTH_LONG).show();
+                if(builder.toString().endsWith("-\n")) Toast.makeText(MainActivity.this, "Database is empty", Toast.LENGTH_LONG).show();
+                else Toast.makeText(MainActivity.this, builder.toString(), Toast.LENGTH_LONG).show();
             }
         });
 

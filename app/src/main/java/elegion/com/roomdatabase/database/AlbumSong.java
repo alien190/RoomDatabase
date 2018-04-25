@@ -10,8 +10,8 @@ import android.arch.persistence.room.PrimaryKey;
  */
 
 @Entity(foreignKeys = {
-        @ForeignKey(entity = Album.class, parentColumns = "id", childColumns = "album_id"),
-        @ForeignKey(entity = Song.class, parentColumns = "id", childColumns = "song_id")})
+        @ForeignKey(entity = Album.class, parentColumns = "id", childColumns = "album_id", onUpdate = ForeignKey.CASCADE, onDelete = ForeignKey.CASCADE),
+        @ForeignKey(entity = Song.class, parentColumns = "id", childColumns = "song_id", onUpdate = ForeignKey.CASCADE, onDelete = ForeignKey.CASCADE)})
 public class AlbumSong {
 
     @PrimaryKey(autoGenerate = true)
