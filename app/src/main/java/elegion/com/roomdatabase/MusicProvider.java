@@ -123,7 +123,7 @@ public class MusicProvider extends ContentProvider {
 
         switch (code) {
             case ALBUM_TABLE_CODE: {
-                if(isAlbumValuesValid(values)) {
+                if(isAlbumValuesValidForInsert(values)) {
                     Album album = new Album();
                     Integer id = values.getAsInteger("id");
                     album.setId(id);
@@ -138,7 +138,7 @@ public class MusicProvider extends ContentProvider {
             }
 
             case SONG_TABLE_CODE: {
-                if(isSongValuesValid(values)) {
+                if(isSongValuesValidForInsert(values)) {
                     Song song = new Song();
                     Integer id = values.getAsInteger("id");
                     song.setId(id);
@@ -153,7 +153,7 @@ public class MusicProvider extends ContentProvider {
             }
 
             case ALBUMSONG_TABLE_CODE: {
-                if(isAlbumSongValuesValid(values)) {
+                if(isAlbumSongValuesValidForInsert(values)) {
                     AlbumSong albumSong = new AlbumSong();
                     albumSong.setAlbumId(values.getAsInteger("album_id"));
                     albumSong.setSongId(values.getAsInteger("song_id"));
@@ -170,16 +170,28 @@ public class MusicProvider extends ContentProvider {
 
     }
 
-    private boolean isAlbumSongValuesValid(ContentValues values) {
+    private boolean isAlbumSongValuesValidForInsert(ContentValues values) {
         return values.containsKey("album_id") && values.containsKey("song_id");
     }
 
-    private boolean isSongValuesValid(ContentValues values) {
+    private boolean isSongValuesValidForInsert(ContentValues values) {
         return values.containsKey("id") && values.containsKey("name") && values.containsKey("duration");
     }
 
-    private boolean isAlbumValuesValid(ContentValues values) {
+    private boolean isAlbumValuesValidForInsert(ContentValues values) {
         return values.containsKey("id") && values.containsKey("name") && values.containsKey("release");
+    }
+
+    private boolean isAlbumSongValuesValidForUpdate(ContentValues values) {
+        return values.containsKey("album_id") && values.containsKey("song_id");
+    }
+
+    private boolean isSongValuesValidForUpdate(ContentValues values) {
+        return  values.containsKey("name") && values.containsKey("duration");
+    }
+
+    private boolean isAlbumValuesValidForUpdate(ContentValues values) {
+        return  values.containsKey("name") && values.containsKey("release");
     }
 
     @Override
@@ -189,7 +201,7 @@ public class MusicProvider extends ContentProvider {
 
         switch (code) {
             case ALBUM_ROW_CODE: {
-                if(isAlbumValuesValid(values)) {
+                if(isAlbumValuesValidForUpdate(values)) {
                     Album album = new Album();
                     Integer id = (int) ContentUris.parseId(uri);
                     album.setId(id);
@@ -203,7 +215,7 @@ public class MusicProvider extends ContentProvider {
             }
 
             case SONG_ROW_CODE: {
-                if(isSongValuesValid(values)) {
+                if(isSongValuesValidForUpdate(values)) {
                     Song song = new Song();
                     Integer id = (int) ContentUris.parseId(uri);
                     song.setId(id);
@@ -217,7 +229,7 @@ public class MusicProvider extends ContentProvider {
             }
 
             case ALBUMSONG_ROW_CODE: {
-                if(isAlbumSongValuesValid(values)) {
+                if(isAlbumSongValuesValidForUpdate(values)) {
                     AlbumSong albumSong = new AlbumSong();
                     Integer id = (int) ContentUris.parseId(uri);
                     albumSong.setId(id);
